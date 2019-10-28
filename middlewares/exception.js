@@ -6,7 +6,12 @@ const catchError = async (ctx, next) => {
     } catch (error) {
         // error 简化 堆栈调用的信息  给前端
         // HTTP Status Code 2xx 4xx 5xx
-
+        // throw error
+        // 开发环境
+        // 生产环境
+        if(global.config.environment === 'dev') {
+            throw error
+        }
         if(error instanceof HttpException) {
             ctx.body = {
                 msg: error.msg,
@@ -14,6 +19,12 @@ const catchError = async (ctx, next) => {
                 request: `${ctx.method} ${ctx.path}` 
             }
             ctx.status = error.code
+        } else {
+            ctx.body = {
+                msg: 'we made a mistake @',
+                error_code: 999,
+                request: `${ctx.method} ${ctx.path}`
+            }
         }
         
         // ctx.body = "服务器有点问题，你等两线下"
