@@ -17,7 +17,6 @@ const catchError = async (ctx, next) => {
         }
         
         // ctx.body = "服务器有点问题，你等两线下"
-        // message
         // error_code 详细 开发者自己定义 10001 20003
         // request_url 当前请求的url
 
