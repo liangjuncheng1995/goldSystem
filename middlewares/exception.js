@@ -9,10 +9,15 @@ const catchError = async (ctx, next) => {
         // throw error
         // 开发环境
         // 生产环境
-        if(global.config.environment === 'dev') {
+
+        //开发环境 不是HttpException
+        const isHttpException = error instanceof HttpException
+        const isDev = global.config.environment
+
+        if(isDev && !isHttpException) {
             throw error
         }
-        if(error instanceof HttpException) {
+        if(isHttpException) {
             ctx.body = {
                 msg: error.msg,
                 error_code: error.errorCode,

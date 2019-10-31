@@ -23,7 +23,6 @@ router.post('/v1/:id/classic/latest', (ctx, next) => {
             }
         }
     }
-
     // 校验 LinValidator
     // TP SpringBoot KOA
     const v = new PositiveIntegerValidator().validate(ctx)
@@ -31,6 +30,27 @@ router.post('/v1/:id/classic/latest', (ctx, next) => {
     console.log(31)
     console.log(id)
     ctx.body = "success"
+})
+module.exports = router
+// User
+    // 用户系统
+    // 账号 密码 附属信息 ：昵称 email 手机
+    // 注册 登录
+    // Sequelize 链接数据库 配置一些数据的参数
+
+
+    // 数据库类型
+    // 关系型数据库
+    // 非关系型的数据库
+    // MYSQL （关系型） CRUD ORM
+    // MS SQL Server  Access（关系型）
+    // Oracle （关系型）
+    // PostgresSQL（关系型）
+
+    // Redis （非关系型 key :value） (做缓存)
+    // MongoDB （文档型数据库） （非关系型） ODM
+    // 持久存储数据 持久化
+
 
     // if(true) {
     //     //动态 面向对象定义一个类
@@ -56,6 +76,3 @@ router.post('/v1/:id/classic/latest', (ctx, next) => {
         
     // }
     // 异常处理
-})
-
-module.exports = router
