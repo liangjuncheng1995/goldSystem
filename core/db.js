@@ -25,7 +25,7 @@ const sequelize = new Sequelize(dbName,user,password,{
 })
 
 sequelize.sync({
-    force: true // 生产环境的时候不能为true,会把原来的表的记录删除掉，重新创表 
+    force: false // 生产环境的时候不能为true,会把原来的表的记录删除掉，重新创表 
 })
 
 module.exports = {

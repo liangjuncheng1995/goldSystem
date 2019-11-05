@@ -1,37 +1,43 @@
 
 const Router = require('koa-router')
-const router = new Router();//实例化
-const {PositiveIntegerValidator} = require('../../validators/validator') 
+const router = new Router({
+    prefix: '/v1/classic'
+});//实例化
+const { PositiveIntegerValidator } = require('../../validators/validator')
 
-router.post('/v1/:id/classic/latest', (ctx, next) => {
+const {Auth} = require('../../../middlewares/auth')
+
+router.get('/latest',new Auth().m, async (ctx, next) => {
+    // 权限 复杂
+    // token 限制 角色
+    // 普通用户
+    // 分级 scope
+    // 8(普通用户) 16(admin)
+    ctx.body = ctx.auth.uid
+})
+module.exports = router
+
+
     //前端向服务器传参
     // 链接中间 /v1/{data}/classic/latest
     // 链接后面
     // header
     // body
-    console.log("进入接口处")
-    const path = ctx.params //链接中间的参数
-    const query = ctx.request.query //链接后面的参数
-    const headers = ctx.request.header // header参数，比如token令牌
-    const body = ctx.request.body // body json 数据
+    // console.log("进入接口处")
+    // const path = ctx.params //链接中间的参数
+    // const query = ctx.request.query //链接后面的参数
+    // const headers = ctx.request.header // header参数，比如token令牌
+    // const body = ctx.request.body // body json 数据
 
-    const c = {
-        a: 1,
-        b: {
-            f: 2,
-            e: {
-            }
-        }
-    }
+   
     // 校验 LinValidator
     // TP SpringBoot KOA
-    const v = new PositiveIntegerValidator().validate(ctx)
-    const id = v.get('body.a',parsed=false)
-    console.log(31)
-    console.log(id)
-    ctx.body = "success"
-})
-module.exports = router
+    // const v = await new PositiveIntegerValidator().validate(ctx)
+    // const id = v.get('body.a', parsed = false)
+    // console.log(31)
+    // console.log(id)
+    // ctx.body = "success"
+
 // User
     // 用户系统
     // 账号 密码 附属信息 ：昵称 email 手机
@@ -71,8 +77,8 @@ module.exports = router
     // 输出一段有意义的提示信息
     // KOA 的中间件
     // try {
-        
+
     // } catch (error) {
-        
+
     // }
     // 异常处理
