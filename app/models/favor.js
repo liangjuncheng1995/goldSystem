@@ -8,7 +8,7 @@ class Favor extends Model {
 Favor.init({
     uid: Sequelize.INTEGER,//uid
     art_id: Sequelize.INTEGER,//实体的id号
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
 })
 
 module.exports = {
