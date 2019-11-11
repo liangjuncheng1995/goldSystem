@@ -12,6 +12,7 @@ class Auth {
         return async (ctx,next) => {
             const userToken = basicAuth(ctx.req)
             let errMsg = "token不合法"
+            // console.log(this.level)
             let decode = {}
             if(!userToken || !userToken.name) {
                 console.log("403")
@@ -32,7 +33,7 @@ class Auth {
                 errMsg = '权限不足'
                 throw new global.errs.Forbbiden(errMsg)
             }
-            
+            console.log(35)
             console.log(decode)
 
             ctx.auth = {
@@ -50,6 +51,8 @@ class Auth {
         }
     }
     static verifyToken(token) {
+        console.log("验证token")
+        console.log(token)
         try {
             jwt.verify(token,global.config.security.secretKey)
             return true

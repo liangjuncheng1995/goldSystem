@@ -18,7 +18,7 @@ const sequelize = new Sequelize(dbName,user,password,{
         timestamps: true,
         paranoid: true,
         createdAt: 'created_at',
-        updatedAt: 'undated_at',
+        updatedAt: 'updated_at',
         deletedAt: 'deleted_at',
         underscored: true//驼峰 转换成 下划线
     }

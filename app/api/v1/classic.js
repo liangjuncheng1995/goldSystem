@@ -1,23 +1,51 @@
 
 const Router = require('koa-router')
+const basicAuth = require('basic-auth')
+
 const router = new Router({
     prefix: '/v1/classic'
 });//实例化
+const {
+    Flow
+} = require('../../models/flow')
 const { PositiveIntegerValidator } = require('../../validators/validator')
 
 const {Auth} = require('../../../middlewares/auth')
+const {Art} = require('../../models/art')
 
+
+
+
+// ,, 
 router.get('/latest',new Auth().m, async (ctx, next) => {
+    // const test = basicAuth(ctx.req)
+    // console.log(test)
+
+    //排序
+    const flow = await Flow.findOne({
+        order: [
+            ['index', 'DESC']
+        ]
+    })
+    const art = await Art.getData(flow.art_id, flow.type)
+    // const newData = {
+    //     index: flow.index,
+    //     image: art.image
+    // }
+    // art.dataValues.index = flow.index //不推荐
+    art.setDataValue('index', flow.index)
+    ctx.body = art
+    //序列化 对象 转换成 json
+    // ctx.body = ctx.auth.uid
+    // ctx.body = "success"
+})
+module.exports = router
+
     // 权限 复杂
     // token 限制 角色
     // 普通用户
     // 分级 scope
     // 8(普通用户) 16(admin)
-    ctx.body = ctx.auth.uid
-})
-module.exports = router
-
-
     //前端向服务器传参
     // 链接中间 /v1/{data}/classic/latest
     // 链接后面
@@ -82,3 +110,18 @@ module.exports = router
 
     // }
     // 异常处理
+
+    //model code first 表 model
+    // 面向对象 model class
+    // 初始化数据 期刊 书籍 SQL
+    // model 
+    // 主题 粗到细
+    // user
+    // 期刊 粗
+    // movie Sentence music 扩展性 相似性
+    // Flow
+    // 怎么设计数据库 感觉
+    // 实体 表/model 记录本身相关的信息 事物 （实体表【映射】）
+    // Flow 具体实体，抽象 记录业务 解决业务问题（业务表）好的业务表，性能好，查询快
+    // 一切都是实体表 自己来设计 
+    
