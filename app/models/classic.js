@@ -5,7 +5,10 @@ const classicFileds = {
     image: Sequelize.STRING,
     content: Sequelize.STRING,
     pubdate: Sequelize.STRING,
-    fav_nums: Sequelize.STRING,
+    fav_nums: {
+       type: Sequelize.STRING, 
+       defalt: 0,
+    },
     title: Sequelize.STRING,
     type: Sequelize.STRING
 }

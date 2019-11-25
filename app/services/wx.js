@@ -11,7 +11,7 @@ class WXManager {
         // code 
         // appid appsecret
         // url
-
+     
         const url = util.format(global.config.wx.loginUrl,
             global.config.wx.appId,
             global.config.wx.appSecret,code)
@@ -22,10 +22,11 @@ class WXManager {
         } 
         const errCode = result.data.errcode
         const errmsg = result.data.errmsg
-       
+        
         if(errCode) {
             throw new global.errs.AuthFailed('openId获取失败:' + result)
         }
+        
         // openid
         // 档案 user uid openid 长
         // openid 考虑有没有

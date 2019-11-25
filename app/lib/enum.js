@@ -1,6 +1,6 @@
 function isThisType(val) {
     for(let key in this) {
-        if(this[key] == val) {
+        if(this[key] === val) {
             return true
         }
     } 
@@ -15,4 +15,15 @@ const LoginType = {
     isThisType
 }
 
-module.exports = {LoginType}
+const ArtType = {
+    MOVIE: 100,
+    MUSIC: 200,
+    SENTENCE: 300,
+    BOOK: 400,
+    isThisType
+}
+
+module.exports = {
+    LoginType,
+    ArtType
+}

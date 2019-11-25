@@ -8,15 +8,24 @@ const router = new Router({
 const {
     Flow
 } = require('../../models/flow')
-const { PositiveIntegerValidator } = require('../../validators/validator')
+// const { PositiveIntegerValidator } = require('../../validators/validator')
+const {
+    PositiveIntegerValidator,
+    ClassicValidator
+} = require('@validator')
 
 const {Auth} = require('../../../middlewares/auth')
 const {Art} = require('../../models/art')
+// const {Favor} = require('../../models/favor')
+
+// const {Favor} = require('@root/app/models/favor')
+const {Favor} = require('@module/favor')
 
 
 
 
 // ,, 
+//获取最新期刊
 router.get('/latest',new Auth().m, async (ctx, next) => {
     // const test = basicAuth(ctx.req)
     // console.log(test)
@@ -28,18 +37,104 @@ router.get('/latest',new Auth().m, async (ctx, next) => {
         ]
     })
     const art = await Art.getData(flow.art_id, flow.type)
+    const likeLatest = await Favor.userLikeIt(flow.art_id,flow.type,ctx.auth.uid)
     // const newData = {
     //     index: flow.index,
     //     image: art.image
     // }
     // art.dataValues.index = flow.index //不推荐
     art.setDataValue('index', flow.index)
+    art.setDataValue('like_status', likeLatest)
     ctx.body = art
     //序列化 对象 转换成 json
     // ctx.body = ctx.auth.uid
     // ctx.body = "success"
 })
+// 获取下一期刊
+router.get('/:index/next', new Auth().m, async(ctx) => {//下一期
+    const v = await new PositiveIntegerValidator().validate(ctx, {
+        id: 'index'
+    })
+    const index = v.get('path.index')
+    const flow = await Flow.findOne({
+        where: {
+            index: index + 1
+        }
+    })
+    if(!flow) {
+        throw new global.errs.NotFound()
+    }
+    const art = await Art.getData(flow.art_id, flow.type)
+    const likeNext = await Favor.userLikeIt(flow.art_id,flow.type,ctx.auth.uid)
+    art.setDataValue('index', flow.index)
+    art.setDataValue('like_status', likeNext)
+    ctx.body = art
+})
+//获取上一期刊
+router.get('/:index/previous', new Auth().m, async(ctx) => { //上一期
+    const v = await new PositiveIntegerValidator().validate(ctx, {
+        id: 'index'
+    })
+    const index = v.get('path.index')
+    const flow = await Flow.findOne({
+        where: {
+            index: index - 1
+        }
+    })
+    if(!flow) {
+        throw new global.errs.NotFound()
+    }
+    const art = await Art.getData(flow.art_id, flow.type)
+    const likePrevious = await Favor.userLikeIt(flow.art_id,flow.type,ctx.auth.uid)
+    art.setDataValue('index', flow.index)
+    art.setDataValue('like_status', likePrevious)
+    ctx.body = art
+})
+//获取期刊详情
+router.get('/:type/:id', new Auth().m, async ctx => {
+    const v = await new ClassicValidator().validate(ctx) 
+    const id = v.get('path.id')
+    const type = parseInt(v.get('path.type')) 
+    // 单元测试
+    const artDetail = await new Art(id, type).getDetail(ctx.auth.uid)
+    artDetail.art.setDataValue("like_status", artDetail.like_status)
+    ctx.body = artDetail.art
+    // ctx.body = {
+    //     art: artDetail.art,
+    //     like_status: artDetail.like_status
+    // }
+})
+
+//获取期刊的点赞情况
+router.get('/:type/:id/favor', new Auth().m, async ctx => {
+    const v = await new ClassicValidator().validate(ctx) 
+    const id = v.get('path.id')
+    const type = parseInt(v.get('path.type')) 
+    // const art = await Art.getData(id, type)
+    // if(!art) {
+    //     throw new global.errs.NotFound()
+    // }
+    // const like = await Favor.userLikeIt(id,type,ctx.auth.uid)
+    const artDetail = await new Art(id, type).getDetail(ctx.auth.uid)
+    // artDetail.art.setDataValue("like_status", artDetail.like_status)
+    ctx.body = {
+        fav_nums: artDetail.art.fav_nums,
+        like_status: artDetail.like_status
+    }
+
+})
+//获取我最喜欢的期刊
+router.get('/favor', new Auth().m, async ctx => {
+    const uid = ctx.auth.uid
+    ctx.body = await Favor.getMyClassicFavors(uid)
+})
+
+
 module.exports = router
+
+    // 服务器缓存 redis  前端缓存 解决性能 （缺陷，有条件的限制）
+
+    // 别名 alias
 
     // 权限 复杂
     // token 限制 角色

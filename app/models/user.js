@@ -25,12 +25,15 @@ class User extends Model {
     }
 
     static async getUserByOpenid(openid) {
-        const user = await User.findOne({
+        const scope = 'bh'
+        const user = await User.scope(scope).findOne({
+        // const user = await User.findOne({
             where: {
                 openid
             }
         })
         return user
+        // arts = await Movie.scope(scope).findOne(finder)
     }
 
     static async registerByOpenid(openid) {
