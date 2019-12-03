@@ -3,13 +3,13 @@ module.exports = {
     environment: 'dev',
     database: {
         // dev
-        // dbName: 'cheng',
-        // host: 'localhost',
-        // password: '123456',
-        // online
-        dbName: 'cheng2Online',
-        host: '134.175.129.92',
+        dbName: 'cheng',
+        host: 'localhost',
         password: '855420',
+        // online
+        // dbName: 'cheng2Online',
+        // host: '134.175.129.92',
+        // password: '855420',
 
         port: 3306,
         user: 'root',
