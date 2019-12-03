@@ -37,12 +37,19 @@ router.get('/latest',new Auth().m, async (ctx, next) => {
         ]
     })
     const art = await Art.getData(flow.art_id, flow.type)
+    // const i = art.get('image')
+    // const t = art.image
+    // const s = art.getDataValue('image')
+
+
     const likeLatest = await Favor.userLikeIt(flow.art_id,flow.type,ctx.auth.uid)
     // const newData = {
     //     index: flow.index,
     //     image: art.image
     // }
     // art.dataValues.index = flow.index //不推荐
+    // console.log(art)
+    // console.log(likeLatest)
     art.setDataValue('index', flow.index)
     art.setDataValue('like_status', likeLatest)
     ctx.body = art

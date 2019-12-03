@@ -72,15 +72,16 @@ class Art {
         const scope = 'bh'
         switch (type) {
             case 100:
-                arts = await Movie.scope(scope).findOne(finder)
+                arts = await Movie.scope(scope).findAll(finder)
                 break;
             case 200:
-                arts = await Music.scope(scope).findOne(finder)
+                arts = await Music.scope(scope).findAll(finder)
                 break;
             case 300:
-                arts = await Sentence.scope(scope).findOne(finder)
+                arts = await Sentence.scope(scope).findAll(finder)
                 break;
             case 400:
+
                 break;
 
             default:
@@ -108,11 +109,20 @@ class Art {
                 art = await Sentence.scope(scope).findOne(finder)
                 break;
             case 400:
-                break;
-
+                const {
+                    Book
+                } = require('./book')
+                art = await Book.scope(scope).findOne(finder)
+                if(!art) {
+                    art = await Book.create({
+                        id: art_id
+                    })
+                }
+                break
             default:
                 break;
         }
+        
         return art
     }
 }

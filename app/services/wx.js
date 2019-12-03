@@ -32,6 +32,7 @@ class WXManager {
         // openid 考虑有没有
         let user = await User.getUserByOpenid(result.data.openid)
         if(!user) {
+            console.log("写入数据库的操作")
             user = await User.registerByOpenid(result.data.openid) // 写入数据库
         }
         return generateToken(user.id, Auth.USER)

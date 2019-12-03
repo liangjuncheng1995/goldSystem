@@ -1,44 +1,53 @@
-
+var obj = {
+    age: 18,
+    toJSON: function() {
+        return {
+            name1: 'cheng'
+        }
+    }
+}
+console.log(obj)
+console.log(JSON.stringify(obj))
 
 //机制 监听任何异常
-test1()
-async function test1(params) {
-    try{
-        await test2()
-    } catch(error) {
-        throw error
-    }
-}
-async function test2(params) {
-    try {
-        await test3()
-    } catch(error) {
-        console.log('error')
-    }
-}
+// test1()
+// async function test1(params) {
+//     try{
+//         await test2()
+//     } catch(error) {
+//         throw error
+//     }
+// }
+// async function test2(params) {
+//     try {
+//         await test3()
+//     } catch(error) {
+//         console.log('error')
+//     }
+// }
 
-//全局异常处理
-// console.log(test3())
-async function test3(params) {
-    // try{
-    //     console.log(0/a)
-    // } catch(error) {
-    //     throw error
-    // }
-    // return 'success'
-    // await setTimeout(function () {
-    //     throw new Error('error')
-    // },1000)
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const r = Math.random()
-            console.log(r)
-            if(r < 0.5)  {
-                reject('error')
-            }
-        },1000)
-    })
-}
+// //全局异常处理
+// // console.log(test3())
+// async function test3(params) {
+//     // try{
+//     //     console.log(0/a)
+//     // } catch(error) {
+//     //     throw error
+//     // }
+//     // return 'success'
+//     // await setTimeout(function () {
+//     //     throw new Error('error')
+//     // },1000)
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             const r = Math.random()
+//             console.log(r)
+//             if(r < 0.5)  {
+//                 reject('error')
+//             }
+//         },1000)
+//     })
+// }
 
 // 全局异常处理
 // 函数设计

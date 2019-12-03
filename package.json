@@ -18,6 +18,7 @@
     "koa": "^2.10.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
     "lodash": "^4.17.15",
     "module-alias": "^2.2.2",
     "mysql2": "^2.0.0",
@@ -26,8 +27,8 @@
     "validator": "^12.0.0"
   },
   "_moduleAliases": {
-    "@root"      : ".", 
-    "@module" : "app/models",
+    "@root": ".",
+    "@module": "app/models",
     "@validator": "app/validators/validator.js"
   }
 }

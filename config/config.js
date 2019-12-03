@@ -2,11 +2,18 @@ module.exports = {
     //prod
     environment: 'dev',
     database: {
-        dbName: 'cheng',
-        host: 'localhost',
+        // dev
+        // dbName: 'cheng',
+        // host: 'localhost',
+        // password: '123456',
+        // online
+        dbName: 'cheng2Online',
+        host: '134.175.129.92',
+        password: '855420',
+
         port: 3306,
         user: 'root',
-        password: '855420',
+       
     },
     security: {
         secretKey: "abcdefg",
@@ -21,4 +28,5 @@ module.exports = {
         detailUrl: 'http://t.yushu.im/v2/book/id/%s',
         keywordUrl: 'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s'
     },
+    host: 'http://192.168.1.40:3000/'
 }
