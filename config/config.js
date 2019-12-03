@@ -28,5 +28,5 @@ module.exports = {
         detailUrl: 'http://t.yushu.im/v2/book/id/%s',
         keywordUrl: 'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s'
     },
-    host: 'http://192.168.1.40:3000/'
+    host: 'http://134.175.129.92:3000/' //图片展示的服务以后可以再搭建个服务放图片
 }
