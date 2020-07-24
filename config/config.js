@@ -5,7 +5,7 @@ module.exports = {
         // dev
         // dbName: 'cheng',
         // host: 'localhost',
-        // password: '123456',
+        // password: '855420',
         // online
         dbName: 'cheng2Online',
         host: '134.175.129.92',
@@ -28,5 +28,6 @@ module.exports = {
         detailUrl: 'http://t.yushu.im/v2/book/id/%s',
         keywordUrl: 'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s'
     },
-    host: 'https://www.ljcpro.cn/' //图片展示的服务以后可以再搭建个服务放图片
+    // host: 'http://127.0.0.1/assets/', //图片展示的服务以后可以再搭建个服务放图片
+    host: 'https://www.ljcpro.cn/assets/' //图片展示的服务以后可以再搭建个服务放图片
 }
