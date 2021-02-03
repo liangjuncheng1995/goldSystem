@@ -133,6 +133,8 @@ router.get('/:type/:id/favor', new Auth().m, async ctx => {
 //获取我最喜欢的期刊
 router.get('/favor', new Auth().m, async ctx => {
     const uid = ctx.auth.uid
+    console.log("136行")
+    console.log(uid)
     ctx.body = await Favor.getMyClassicFavors(uid)
 })
 

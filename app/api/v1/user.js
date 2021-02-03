@@ -15,6 +15,9 @@ router.post('/register', async (ctx) => {
     // 10 实例化10次
     // 全局一个validator
     // 密码 需要明文 加密 不同 彩虹攻击
+    console.log(ctx.request)
+    console.log(ctx.request.body)
+
     const v = await new RegisterValidator().validate(ctx)
     // ctx.body = "注册成功"
     // 登录 session 不考虑状态 token

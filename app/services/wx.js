@@ -26,7 +26,7 @@ class WXManager {
         if(errCode) {
             throw new global.errs.AuthFailed('openId获取失败:' + result)
         }
-        
+        console.log(result)
         // openid
         // 档案 user uid openid 长
         // openid 考虑有没有

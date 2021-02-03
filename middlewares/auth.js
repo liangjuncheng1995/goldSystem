@@ -18,6 +18,7 @@ class Auth {
                 console.log("403")
                 throw new global.errs.Forbbiden()
             }
+            console.log(userToken.name)
             try {
                 decode = jwt.verify(userToken.name,global.config.security.secretKey)
             } catch (error) {
